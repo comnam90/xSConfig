@@ -28,7 +28,7 @@ function Invoke-VirtualDiskMenu {
                 }
                 $Footprint = "{0:N2} TB" -f ( $Disk.FootprintOnPool / 1TB )
                 $Size = "{0:N2} TB" -f ( $Disk.Size / 1TB )
-                "| $($Name) | $Status | $($Size)$(" " * (10 - $Size.Length)) | $($Footprint)$(" " * (10 - $Footprint.Length)) |"
+                "| $($Name) | $($Status)$(" " * (9 - $Status.Length)) | $($Size)$(" " * (10 - $Size.Length)) | $($Footprint)$(" " * (10 - $Footprint.Length)) |"
             }
         }
         ""

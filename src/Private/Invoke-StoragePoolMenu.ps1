@@ -29,7 +29,7 @@ function Invoke-StoragePoolMenu {
                 $FreeSpace = "{0:N0} %" -f ( ( 1 - ( $Pool.AllocatedSize / $Pool.Size ) ) * 100 )
                 $AllocatedSpace = "{0:N0} %" -f ( ( $Pool.AllocatedSize / $Pool.Size ) * 100 )
                 $Size = "{0:N1} TB" -f ( $Pool.Size / 1TB )
-                "| $($Name) | $Status | $($FreeSpace)$(" " * (10 - $FreeSpace.Length)) | $($AllocatedSpace)$(" " * (15 - $AllocatedSpace.Length)) | $($Size)$(" " * (9 - $Size.Length)) |"
+                "| $($Name) | $($Status)$(" " * (9 - $Status.Length)) | $($FreeSpace)$(" " * (10 - $FreeSpace.Length)) | $($AllocatedSpace)$(" " * (15 - $AllocatedSpace.Length)) | $($Size)$(" " * (9 - $Size.Length)) |"
             }
         }
         ""
