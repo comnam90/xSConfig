@@ -1,2 +1,19 @@
 # xSConfig
-Experimental Module for extending the new SConfig Module
+
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/237b403772694a89bc849e3d0eee93d7)](https://www.codacy.com/manual/comnam90/xSConfig/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=comnam90/xSConfig&amp;utm_campaign=Badge_Grade)
+[![PowerShell Gallery](https://img.shields.io/powershellgallery/dt/xSConfig)](https://www.powershellgallery.com/packages/xSConfig/)
+
+Experimental Module for extending the new Azure Stack HCI SConfig Module
+
+## Install
+
+### PowerShell Gallery Install (Requires PowerShell v5)
+
+```powershell
+Install-Module xSConfig
+```
+See the [PowerShell Gallery](http://www.powershellgallery.com/packages/xSConfig/) for the complete details and instructions.
+
+## Demo
+
+[![asciicast](https://asciinema.org/a/361867.svg)](https://asciinema.org/a/361867)
