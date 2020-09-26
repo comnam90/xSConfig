@@ -8,6 +8,12 @@
 
 Experimental Module for extending the new Azure Stack HCI SConfig Module
 
+## Requirements
+
+Currently this module only works on the new **Azure Stack HCI** 20H2 OS, as it relies on the new in-box SConfig module.
+
+This module may be compatible with future Operating Systems that also contain the SConfig module.
+
 ## Install
 
 ### PowerShell Gallery Install (Requires PowerShell v5)
