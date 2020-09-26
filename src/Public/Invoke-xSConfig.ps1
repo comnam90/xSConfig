@@ -6,6 +6,7 @@ function Invoke-xSConfig {
             Throw "'SConfig' Module is missing. xSconfig cannot be used without it."
         }
         else {
+            Import-Module SConfig
             $Module = Get-Module SConfig
         }
     }
