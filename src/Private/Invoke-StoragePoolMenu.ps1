@@ -20,10 +20,11 @@ function Invoke-StoragePoolMenu {
                     $Name = "$($Pool.FriendlyName)$(" "*(22-($Pool.FriendlyName.Length)))"
                 }
                 $Status = switch ($Pool.HealthStatus) {
-                    0 { "Healthy  " }
-                    1 { "Warning  " }
+                    0 { "Healthy" }
+                    1 { "Warning" }
                     2 { "Unhealthy" }
-                    5 { "Unknown  " }
+                    5 { "Unknown" }
+                    Default { $_ }
                 }
                 $FreeSpace = "{0:N0} %" -f ( ( 1 - ( $Pool.AllocatedSize / $Pool.Size ) ) * 100 )
                 $AllocatedSpace = "{0:N0} %" -f ( ( $Pool.AllocatedSize / $Pool.Size ) * 100 )

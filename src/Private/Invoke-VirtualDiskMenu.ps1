@@ -6,7 +6,7 @@ function Invoke-VirtualDiskMenu {
         Clear-Host
         Get-Header "Virtual Disks"
         if ($null -ieq $ExtraData['VirtualDisks']) {
-            Write-warning "There are no virtual disks available"
+            Write-Warning "There are no virtual disks available"
         }
         else {
             "| Name                   | Status    | Size       | Pool Size  |"
@@ -20,10 +20,11 @@ function Invoke-VirtualDiskMenu {
                     $Name = "$($Disk.FriendlyName)$(" "*(22-($Disk.FriendlyName.Length)))"
                 }
                 $Status = switch ($Disk.HealthStatus) {
-                    0 { "Healthy  " }
-                    1 { "Warning  " }
+                    0 { "Healthy" }
+                    1 { "Warning" }
                     2 { "Unhealthy" }
-                    5 { "Unknown  " }
+                    5 { "Unknown" }
+                    Default { $_ }
                 }
                 $Footprint = "{0:N2} TB" -f ( $Disk.FootprintOnPool / 1TB )
                 $Size = "{0:N2} TB" -f ( $Disk.Size / 1TB )
