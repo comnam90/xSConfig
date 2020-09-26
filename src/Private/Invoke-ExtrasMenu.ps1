@@ -14,9 +14,9 @@ function Invoke-ExtrasMenu {
             "S2D Enabled:$(Get-MenuColumnPadding 11 'S2D Enabled:')$($ExtraData['S2DEnabled'])"
             "StorageSubSystem Health:$(Get-MenuColumnPadding 11 'StorageSubSystem Health:')$($ExtraData['StorageSubSystemHealth'])"
             ""
-            "1) Storage Pools$(Get-MenuColumnPadding 1 '    Storage Pools')$($ExtraData['StoragePools'].Count) Pools"
-            "2) Virtual Disks$(Get-MenuColumnPadding 1 '    Virtual Disks')$($ExtraData['VirtualDisks'].Count) Disks"
-            "3) Cluster Nodes$(Get-MenuColumnPadding 1 '    Cluster Nodes')$($ExtraData['Nodes'].Count) Nodes"
+            "1) Storage Pools$(Get-MenuColumnPadding 1 '    Storage Pools')$(($ExtraData['StoragePools'] | Measure-Object).Count) Pools"
+            "2) Virtual Disks$(Get-MenuColumnPadding 1 '    Virtual Disks')$(($ExtraData['VirtualDisks'] | Measure-Object).Count) Disks"
+            "3) Cluster Nodes$(Get-MenuColumnPadding 1 '    Cluster Nodes')$(($ExtraData['Nodes'] | Measure-Object).Count) Nodes"
             ""
             $return = Read-Host "Enter number to select an option(BLANK=Cancel)"
             Switch ($return) {
