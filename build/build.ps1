@@ -18,6 +18,11 @@ if ($Bootstrap) {
         Install-Module Pester -RequiredVersion $Build['PesterVersion'] -Force -Scope CurrentUser -SkipPublisherCheck
     }
     Import-Module Pester -RequiredVersion $Build['PesterVersion']
+    
+    if (-not (Get-Module -Name PSCodeCovIo -ListAvailable)) {
+        Write-Warning "Module 'PSCodeCovIo' is missing. Installing 'PSCodeCovIo' ..."
+        Install-Module -Name PSCodeCovIo -Scope CurrentUser -Force
+    }
 }
 
 # Test step
@@ -26,10 +31,21 @@ if ($Test) {
         throw "Cannot find the required module 'Pester' version $($Build.PesterVersion)"
     }
 
+    if (-not (Get-Module -Name PSCodeCovIo -ListAvailable)) {
+        throw "Cannot find the 'PSCodeCovIo' module. Please specify '-Bootstrap' to install build dependencies."
+    }
+
     $ModuleFiles = Get-ChildItem -Path .\src -Recurse -Include "*.psm1", "*.ps1" | Select-Object -ExpandProperty FullName
-    $results = Invoke-Pester -Script .\Tests -CodeCoverage $ModuleFiles -PassThru
+    if ($env:TF_BUILD) {
+        $results = Invoke-Pester "./Tests" -OutputFormat NUnitXml -OutputFile TestResults.xml -CodeCoverage $ModuleFiles -CodeCoverageOutputFileFormat 'JaCoCo' -CodeCoverageOutputFile "$Env:AgentTemp\CoverageResults.xml" -PassThru
+        if ($results.FailedCount -gt 0) { throw "$($results.FailedCount) tests failed." }
+    } else {
+        $results = Invoke-Pester -Script "./Tests" -CodeCoverage $ModuleFiles -PassThru
+    }
 
     if ($CodeCoverage) {
-        "Coverage: {0:N2} %" -f (($results.CodeCoverage.NumberOfCommandsExecuted / $results.CodeCoverage.NumberOfCommandsAnalyzed) * 100)
+        Export-CodeCovIoJson -CodeCoverage $results.CodeCoverage -RepoRoot $pwd -Path coverage.json
+
+        Invoke-WebRequest -Uri 'https://codecov.io/bash' -OutFile codecov.sh
     }
 }
