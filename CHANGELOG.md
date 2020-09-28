@@ -13,6 +13,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Added Azure DevOps pipeline
 
+- Added tests for Invoke-VirtualDiskMenu
+
 ### Changed
 
 - Added Requirements section to README
