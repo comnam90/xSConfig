@@ -1,5 +1,3 @@
-Import-Module $PSScriptRoot\..\src\xSconfig.psm1 -Force
-
 InModuleScope xSConfig {
     Describe 'Invoke-ClusterNodeMenu' {
         Context 'Non-HCI Node' {
