@@ -1,3 +1,4 @@
+
 InModuleScope xSConfig {
     Describe 'Invoke-VirtualDiskMenu' {
         Context 'Non-HCI Node' {

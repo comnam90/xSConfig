@@ -38,6 +38,7 @@ if ($Test) {
     Import-Module $PSScriptRoot\..\src\xSConfig.psm1 -Force
 
     $ModuleFiles = Get-ChildItem -Path .\src -Recurse -Include "*.ps1" | Select-Object -ExpandProperty FullName
+    
     if ($env:TF_BUILD) {
         $results = Invoke-Pester "./Tests" -OutputFormat NUnitXml -OutputFile TestResults.xml -CodeCoverage $ModuleFiles -CodeCoverageOutputFileFormat 'JaCoCo' -CodeCoverageOutputFile "$Env:AgentTemp\CoverageResults.xml" -PassThru
         if ($results.FailedCount -gt 0) { throw "$($results.FailedCount) tests failed." }
