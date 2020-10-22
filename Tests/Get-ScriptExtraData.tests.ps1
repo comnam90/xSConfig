@@ -1,6 +1,3 @@
-
-Import-Module $PSScriptRoot\..\src\xSconfig.psm1 -Force
-
 InModuleScope -ModuleName xSConfig {
     Describe "Get-ScriptExtraData" {
         Context "Non-HCI Node" {

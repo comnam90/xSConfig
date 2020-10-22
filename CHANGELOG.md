@@ -23,6 +23,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Added Demo to README
 
+- Updated Tests to not import module, and instead added module import to build script.
+
 ### Fixed
 
 - Fixed Storage Pool menu tablle Health Status values and padding
