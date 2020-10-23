@@ -16,51 +16,28 @@ function Invoke-xSConfig {
             if (Test-Path -Path $PSScriptRoot\..\Private\) {
                 Get-ChildItem -Path $PSScriptRoot\..\Private\*-*.ps1 | ForEach-Object { . $_.FullName }
             } # IF
+            
+            # Update Menu Items
+            $MenuItemsScriptBlock = Get-Command -Name Get-MenuItems -Module SConfig | Select-Object -ExpandProperty ScriptBlock
+            $AdditionalMenuItems = @"
+    16) Extras
 
-            function Get-MenuSelection2 {
-                [CmdletBinding()]Param()
-
-                Clear-Host
-                $MenuTitle = $Strings.Title + " " + $Data["CurrentOS"]
-                $Header = Get-Header $($MenuTitle)
-                $MenuItems = Get-MenuItems
-                $AdditionalItems = @"
-16) Extras
-
-$($Strings.MenuOptions_Prompt)
+  $($Strings.MenuOptions_Prompt)
 "@
-                $MenuItems = $MenuItems.Replace($Strings.MenuOptions_Prompt, $AdditionalItems)
+            $UpdatedMenuItems = @"
+                function Get-MenuItems {
+                    $($MenuItemsScriptBlock.ToString().Replace('  $($Strings.MenuOptions_Prompt)', $AdditionalMenuItems))
+                }
+"@
+    
+            Invoke-Expression -Command $UpdatedMenuItems
 
-                return Read-Host ($Header + $MenuItems)
-            }
-
+            $SconfigScriptblock = Get-Command -Name Invoke-SConfig -Module SConfig | Select-Object -ExpandProperty ScriptBlock
+            $UpdatedSconfigScriptblock = $SconfigScriptblock -replace '(switch \(Get\-MenuSelection\) \{)','$1
+            "16" { Invoke-ExtrasMenu } '
+            Invoke-Expression -Command $UpdatedSconfigScriptblock
             # This script's "main" function
-            function Invoke-SConfig2 {
-                [CmdletBinding()]Param()
-
-                $Data = Get-ScriptData
-                do {
-                    switch (Get-MenuSelection2) {
-                        "1" { Set-DomainWorkGroup }
-                        "2" { Set-ComputerName }
-                        "3" { Add-LocalAdmin }
-                        "4" { Set-RemoteManagement }
-                        "5" { Set-UpdateSettings }
-                        "6" { Invoke-DownloadInstallUpdates }
-                        "7" { Set-RemoteDesktopSettings }
-                        "8" { Set-NetworkSettings }
-                        "9" { timedate.cpl }
-                        "10" { Set-TelemetrySettings }
-                        "11" { Invoke-WindowsActivation }
-                        "12" { Invoke-LogOff }
-                        "13" { Invoke-Restart }
-                        "14" { Invoke-ShutDown }
-                        "15" { Clear-Host; return }
-                        "16" { Invoke-ExtrasMenu }
-                    }
-                } while ($true)
-            }
-            Invoke-SConfig2
+            Invoke-SConfig
         }
     }
 }

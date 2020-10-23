@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.3]
+
 ### Added
 
 - Added Changelog to project
@@ -27,9 +29,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
-- Fixed Storage Pool menu tablle Health Status values and padding
+- Fixed Storage Pool menu table Health Status values and padding
 
-- Fixed Virtual Disk menu tablle Health Status values and padding
+- Fixed Virtual Disk menu table Health Status values and padding
+
+- KB4580363 for Azure Stack HCI introduced breaking changes that have been resolved. #7
 
 ## [0.1.2] - 2020-09-26
 
@@ -65,5 +69,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
   - Contains table of Cluster Nodes.
 
-[unreleased]: https://github.com/comnam90/xSConfig/compare/v0.1.2...HEAD
+[Unreleased]: https://github.com/comnam90/xSConfig/compare/v0.1.3...HEAD
+[0.1.3]: https://github.com/comnam90/xSConfig/compare/v0.1.2...v0.1.3
 [0.1.2]: https://github.com/comnam90/xSConfig/releases/tag/v0.1.2
