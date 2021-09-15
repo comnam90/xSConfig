@@ -2,12 +2,13 @@ function Invoke-xSConfig {
     [cmdletbinding()]
     param()
     begin {
-        If (-not (Get-Module SConfig -ListAvailable)) {
+	$SConfigModule = Get-Module -ListAvailable -Name *Sconfig | Where-object {$_.Name -ne 'xSConfig'}
+        If ($null -eq $SConfigModule) {
             Throw "'SConfig' Module is missing. xSconfig cannot be used without it."
         }
         else {
-            Import-Module SConfig
-            $Module = Get-Module SConfig
+            Import-Module $SConfigModule.Name
+            $Module = Get-Module $SConfigModule.Name
         }
     }
     process {
@@ -18,7 +19,7 @@ function Invoke-xSConfig {
             } # IF
             
             # Update Menu Items
-            $MenuItemsScriptBlock = Get-Command -Name Get-MenuItems -Module SConfig | Select-Object -ExpandProperty ScriptBlock
+            $MenuItemsScriptBlock = Get-Command -Name Get-MenuItems -Module $SConfigModule.Name | Select-Object -ExpandProperty ScriptBlock
             $AdditionalMenuItems = @"
     16) Extras
 
@@ -32,7 +33,7 @@ function Invoke-xSConfig {
     
             Invoke-Expression -Command $UpdatedMenuItems
 
-            $SconfigScriptblock = Get-Command -Name Invoke-SConfig -Module SConfig | Select-Object -ExpandProperty ScriptBlock
+            $SconfigScriptblock = Get-Command -Name Invoke-SConfig -Module $SConfigModule.Name | Select-Object -ExpandProperty ScriptBlock
             $UpdatedSconfigScriptblock = $SconfigScriptblock -replace '(switch \(Get\-MenuSelection\) \{)','$1
             "16" { Invoke-ExtrasMenu } '
             Invoke-Expression -Command $UpdatedSconfigScriptblock

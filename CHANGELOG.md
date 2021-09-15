@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+- Updating logic in Invoke-xSConfig to target new SConfig module #9
+
 ## [0.1.3]
 
 ### Added
